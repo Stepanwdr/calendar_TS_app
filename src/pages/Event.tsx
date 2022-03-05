@@ -16,7 +16,6 @@ const Event:FC = () => {
         setVisible(false)
       createEvent(event)
    }
-   console.log(user);
    
     useEffect(()=>{
         fetchGuests()
@@ -24,7 +23,9 @@ const Event:FC = () => {
     },[])
     return (
         <Layout>
-            <EventCalendar events={events}/>
+            <EventCalendar events={events}
+             setModalVisible={()=>setVisible(true)}
+             />
         <Row justify='center'>
         <Button onClick={()=>setVisible(true)}>
             Add event
