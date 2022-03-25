@@ -8,7 +8,7 @@ const LoginForm:FC = () => {
    const {login}=useActions()
   const {isLoading}=useTypedSelector(state=>state.auth)
     const handleSubmit=()=>{
-     login("Hamo","1234")
+     login("add56b5212e81abc4432624a8e6049aa","st@mail.rus")
     }
     return (
         <Form onFinish={handleSubmit}>

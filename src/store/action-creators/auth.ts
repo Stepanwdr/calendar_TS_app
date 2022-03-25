@@ -8,18 +8,17 @@ setUser:(user:IUser):SetUserAction=>({type:AuthActionEnum.SET_USER,payload:user}
 setAuth:(isAuth:boolean):SetIsAuthAction=>({type:AuthActionEnum.SET_IS_AUTH,payload:isAuth}),
 setIsLoading:(isLoading:boolean):SetIsLoadingAction=>({type:AuthActionEnum.SET_IS_LOADING,payload:isLoading}),
 setError:(error:string):SetErrorAction=>({type:AuthActionEnum.SET_ERROR,payload:error}),
-login:(username:string,password:string)=>async(dispatch:AppDispatch)=>{
+login:(password:string,email:string)=>async(dispatch:AppDispatch)=>{
 dispatch(AuthActionCreators.setIsLoading(true))
  setTimeout (async()=>{
     try{
-        const response=await UserServices.getUsers()
+        const response=await UserServices.login(password,email)
         console.log(response.data);
-        const user=response.data.find(user=>user.username===username && user.password===password)
-        if(user){
+        if(response.data){
             localStorage.setItem("isAuth","true")
-            localStorage.setItem("username",user.username)
+            localStorage.setItem("username",response.data.username)
              dispatch(AuthActionCreators.setAuth(true))
-             dispatch(AuthActionCreators.setUser(user))
+             dispatch(AuthActionCreators.setUser(response.data))
         }
         dispatch(AuthActionCreators.setIsLoading(false))
     }
